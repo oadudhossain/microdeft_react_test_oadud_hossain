@@ -78,7 +78,7 @@ export default function AddCourse() {
         Add Course
       </h2>
       <form onSubmit={handleSubmit}>
-     
+        {/* Title Field */}
         <div style={{ marginBottom: "15px" }}>
           <label
             htmlFor="title"

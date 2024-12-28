@@ -29,7 +29,7 @@ export default function RootLayout({
       <body
       className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-      <nav style={{ display: 'flex', gap: '1rem', padding: '1rem', backgroundColor: '#f8f9fa', borderBottom: '1px solid #dee2e6' }}>
+      <nav style={{ display: 'flex', gap: '4rem', padding: '1rem', backgroundColor: '#f8f9fa', borderBottom: '1px solid #dee2e6', fontWeight: "bold" }}>
         <Link href="/login">Login</Link>
         <Link href="/register">Register</Link>
         <Link href="/courses/add">Add Courses</Link>

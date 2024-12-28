@@ -44,8 +44,7 @@ export default function Courses() {
             <div
               className="badge"
               style={{
-                backgroundColor:
-                  course.badge_text === "Passed" ? "#28a745" : "#dc3545",
+                backgroundColor: course.badge_color || "#dc3545",
               }}
             >
               {course.badge_text}
