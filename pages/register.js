@@ -1,4 +1,7 @@
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useLocalStorageState } from "../hooks/useLocalStorage";
+import axios from "axios";
 
 export default function Register() {
   const [formData, setFormData] = useState({
@@ -8,6 +11,8 @@ export default function Register() {
   });
 
   const [responseMessage, setResponseMessage] = useState("");
+  const [_, setToken] = useLocalStorageState("authToken", "");
+  const router = useRouter();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -18,28 +23,17 @@ export default function Register() {
     e.preventDefault();
 
     try {
-      const response = await fetch(
-        "https://react-interview.crd4lc.easypanel.host/api/register",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
+      const response = await axios.post(
+        "https://react-interview.crd4lc.easypanel.host/api/login",
+        formData
       );
+      console.log("Token:", response);
+      const { data } = response.data;
 
-      if (response.ok) {
-        const data = await response.json();
-        setResponseMessage("Registration successful!");
-        console.log("Response:", data);
-      } else {
-        const errorData = await response.json();
-        setResponseMessage(
-          `Error: ${errorData.message || "Failed to register"}`
-        );
-        console.error("Error Response:", errorData);
-      }
+      setToken(data.token);
+      console.log("Token:", data.token, response, typeof response);
+
+      router.push("/courses", { scroll: false });
     } catch (error) {
       setResponseMessage("An error occurred. Please try again later.");
       console.error("Error:", error);

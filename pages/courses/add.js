@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { useLocalStorageState } from "../../hooks/useLocalStorage";
 
 export default function AddCourse() {
   const [formData, setFormData] = useState({
@@ -12,8 +13,7 @@ export default function AddCourse() {
 
   const [responseMessage, setResponseMessage] = useState("");
 
-
-  const AUTH_TOKEN = "localstorage.getItem(authToken)";
+  const [token] = useLocalStorageState("authToken");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -30,7 +30,7 @@ export default function AddCourse() {
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${AUTH_TOKEN}`,
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -39,17 +39,14 @@ export default function AddCourse() {
       console.log("Response:", response.data);
     } catch (error) {
       if (error.response) {
-
         console.error("Error Response:", error.response.data);
         setResponseMessage(
           `Error: ${error.response.data.message || "Failed to add the course"}`
         );
       } else if (error.request) {
-    
         console.error("No Response:", error.request);
         setResponseMessage("No response from server. Please try again later.");
       } else {
-   
         console.error("Error:", error.message);
         setResponseMessage("An error occurred. Please try again later.");
       }

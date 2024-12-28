@@ -1,10 +1,14 @@
 import { useState } from "react";
 import axios from "axios";
+import { useLocalStorageState } from "../hooks/useLocalStorage";
+import { redirect, useRouter } from "next/navigation";
 
 export default function Login() {
+  const [_, setToken] = useLocalStorageState("authToken", "");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,11 +22,12 @@ export default function Login() {
         }
       );
 
-      const { token } = response.data;
+      const { data } = response.data;
 
-      localStorage.setItem("authToken", token);
+      setToken(data.token);
+      console.log("Token:", data.token, response, typeof response);
 
-      setMessage("Login successful!");
+      router.push("/courses", { scroll: false });
     } catch (error) {
       setMessage("Login failed. Please check your credentials.");
       console.error("Error logging in:", error);
