@@ -5,6 +5,7 @@ export default function Home() {
     <div className="">
       <Link href="/login"> Login </Link>
       <Link href="/register"> Register </Link>
+      <Link href="/courses/add  "> Add Courses </Link>
     </div>
   );
 }
