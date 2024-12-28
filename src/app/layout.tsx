@@ -27,13 +27,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {" "}
-        <Link href="/login"> Login </Link>
-        <Link href="/register"> Register </Link>
-        <Link href="/courses/add  "> Add Courses </Link>
-        {children}
+      <nav style={{ display: 'flex', gap: '1rem', padding: '1rem', backgroundColor: '#f8f9fa', borderBottom: '1px solid #dee2e6' }}>
+        <Link href="/login">Login</Link>
+        <Link href="/register">Register</Link>
+        <Link href="/courses/add">Add Courses</Link>
+        <Link href="/courses">All Courses</Link>
+      </nav>
+      {children}
       </body>
     </html>
   );
